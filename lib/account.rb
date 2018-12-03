@@ -19,7 +19,7 @@ class Account
     raise 'Not enough money in account' if @balance - amount < MINIMUM_BALANCE
 
     @balance -= amount
-    add_transaction(amount)
+    add_transaction(-amount)
   end
 
   def add_transaction(amount)
