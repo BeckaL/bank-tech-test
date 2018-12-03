@@ -80,4 +80,4 @@ $ print account.history.statement
 
 ## Manual feature test in IRB
 
-![]('~/Projects/tech-tests/bank-tech-test/public/irb_feature_test.png')
+![Manual feature tests]('~/Projects/tech-tests/bank-tech-test/public/irb_feature_test.png')
