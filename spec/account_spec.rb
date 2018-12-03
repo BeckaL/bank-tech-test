@@ -54,5 +54,9 @@ RSpec.describe 'Account' do
         .to raise_error 'Not enough money in account'
     end
 
+    it 'cannot withdraw if the amount given is not an integer' do
+      expect { @account.withdraw('not an integer') }.to raise_error 'Not given a valid deposit'
+    end
+
   end
 end
