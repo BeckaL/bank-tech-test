@@ -83,4 +83,4 @@ $ print account.history.statement
 
 ## Manual feature test in IRB
 
-![Manual feature tests]('~/Projects/tech-tests/bank-tech-test/public/irb_feature_test.png')
+![Manual feature tests]('https://github.com/BeckaL/bank-tech-test/blob/master/public/irb_feature_test.png')
