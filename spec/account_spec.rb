@@ -13,31 +13,40 @@ RSpec.describe 'Account' do
     expect(@account.balance).to eq 0
   end
 
-  it 'depositing increases balance by the amount deposited' do
-    expect { @account.deposit(whole_no_amount) }
-      .to change { @account.balance }.by whole_no_amount
+  describe '#deposit' do
+
+    it 'depositing increases balance by the amount deposited' do
+      expect { @account.deposit(whole_no_amount) }
+        .to change { @account.balance }.by whole_no_amount
+    end
+
+    it 'depositing allows for deposits with decimals' do
+      expect { @account.deposit(decimal_amount) }
+        .to change { @account.balance }.by decimal_amount
+    end
+
   end
 
-  it 'depositing allows for deposits with decimals' do
-    expect { @account.deposit(decimal_amount) }
-      .to change { @account.balance }.by decimal_amount
-  end
+  describe '#withdrawing' do
 
-  it 'withdrawing decreases balance by the amount deposited' do
-    @account.deposit(whole_no_amount)
-    expect { @account.withdraw(whole_no_amount) }
-      .to change { @account.balance }.by -whole_no_amount
-  end
+    before do
+      @account.deposit(whole_no_amount)
+    end
 
-  it 'withdrawing decreases balance by the amount deposited' do
-    @account.deposit(whole_no_amount)
-    expect { @account.withdraw(decimal_amount) }
-      .to change { @account.balance }.by -decimal_amount
-  end
+    it 'withdrawing decreases balance by the amount deposited' do
+      expect { @account.withdraw(whole_no_amount) }
+        .to change { @account.balance }.by -whole_no_amount
+    end
 
-  it 'cannot withdraw if the withdrawal will take the balance below zero' do
-    @account.deposit(whole_no_amount)
-    expect { @account.withdraw(large_amount) }
-      .to raise_error 'Not enough money in account'
+    it 'withdrawing decreases balance by the amount deposited' do
+      expect { @account.withdraw(decimal_amount) }
+        .to change { @account.balance }.by -decimal_amount
+    end
+
+    it 'cannot withdraw if the withdrawal will take the balance below zero' do
+      expect { @account.withdraw(large_amount) }
+        .to raise_error 'Not enough money in account'
+    end
+
   end
 end
