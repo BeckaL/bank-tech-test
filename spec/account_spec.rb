@@ -9,8 +9,13 @@ RSpec.describe 'Account' do
     expect(@account.balance).to eq 0
   end
 
-  it 'allows deposits' do
-    @account.deposit(100)
-    expect(@account.balance).to eq 100
+  it 'depositing increases balance by the amount deposited' do
+    expect{@account.deposit(100)}.to change{@account.balance}.by 100
   end
+
+  it 'depositing allows for deposits with decimals' do
+    expect{@account.deposit(50.5)}.to change{@account.balance}.by 50.5
+  end
+
+
 end
