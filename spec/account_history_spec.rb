@@ -16,20 +16,30 @@ RSpec.describe 'Account History' do
     expect(@history.transactions).to eq []
   end
 
-  it 'saves a new transaction' do
-    allow(Time).to receive_message_chain('now.strftime').with("%d/%m/%Y").and_return date
-    @history.add_transaction(deposit, first_balance)
-    expect(@history.transactions).to eq [{date: date, deposit: deposit, withdrawal: nil, balance: first_balance}]
+  describe '#add_transaction' do
+
+    it 'saves a new transaction' do
+      allow(Time).to receive_message_chain('now.strftime').with("%d/%m/%Y").and_return date
+      @history.add_transaction(deposit, first_balance)
+      expect(@history.transactions).to eq [{date: date, deposit: deposit, withdrawal: nil, balance: first_balance}]
+    end
+
   end
 
-  it 'prints transaction history' do
-    @history.add_transaction(deposit, first_balance)
-    expect(@history.statement).to eq "date || credit || debit || balance\n03/12/2018 || 100 ||  || 100"
-  end
+  describe '#statement' do
 
-  it 'prints longer transaction history' do
-    @history.add_transaction(deposit, first_balance)
-    @history.add_transaction(withdrawal, second_balance)
-    expect(@history.statement).to eq "date || credit || debit || balance\n03/12/2018 || 100 ||  || 100\n03/12/2018 ||  || 50 || 50"
+    before do
+      @history.add_transaction(deposit, first_balance)
+    end
+
+    it 'prints transaction history' do
+      expect(@history.statement).to eq "date || credit || debit || balance\n03/12/2018 || 100 ||  || 100"
+    end
+
+    it 'prints longer transaction history' do
+      @history.add_transaction(withdrawal, second_balance)
+      expect(@history.statement).to eq "date || credit || debit || balance\n03/12/2018 || 100 ||  || 100\n03/12/2018 ||  || 50 || 50"
+    end
+
   end
 end
