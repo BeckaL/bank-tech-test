@@ -1,8 +1,9 @@
 require './lib/account.rb'
 
 RSpec.describe 'Account' do
-  let(:whole_no_amount){100}
-  let(:decimal_amount){50.5}
+  let(:whole_no_amount) { 100 }
+  let(:decimal_amount) { 50.5 }
+  let(:large_amount) { 1000 }
 
   before do
     @account = Account.new
@@ -13,22 +14,30 @@ RSpec.describe 'Account' do
   end
 
   it 'depositing increases balance by the amount deposited' do
-    expect{@account.deposit(whole_no_amount)}.to change{@account.balance}.by whole_no_amount
+    expect { @account.deposit(whole_no_amount) }
+      .to change { @account.balance }.by whole_no_amount
   end
 
   it 'depositing allows for deposits with decimals' do
-    expect{@account.deposit(decimal_amount)}.to change{@account.balance}.by decimal_amount
+    expect { @account.deposit(decimal_amount) }
+      .to change { @account.balance }.by decimal_amount
   end
 
   it 'withdrawing decreases balance by the amount deposited' do
     @account.deposit(whole_no_amount)
-    expect{@account.withdraw(whole_no_amount)}.to change{@account.balance}.by -whole_no_amount
+    expect { @account.withdraw(whole_no_amount) }
+      .to change { @account.balance }.by -whole_no_amount
   end
 
   it 'withdrawing decreases balance by the amount deposited' do
     @account.deposit(whole_no_amount)
-    expect{@account.withdraw(decimal_amount)}.to change{@account.balance}.by -decimal_amount
+    expect { @account.withdraw(decimal_amount) }
+      .to change { @account.balance }.by -decimal_amount
   end
 
-
+  it 'cannot withdraw if the withdrawal will take the balance below zero' do
+    @account.deposit(whole_no_amount)
+    expect { @account.withdraw(large_amount) }
+      .to raise_error 'Not enough money in account'
+  end
 end
