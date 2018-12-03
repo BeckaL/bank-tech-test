@@ -1,18 +1,28 @@
+require_relative "account_history.rb"
+
 class Account
-  attr_reader :balance
   MINIMUM_BALANCE = 0
 
-  def initialize
+  attr_reader :balance, :account_history
+
+  def initialize(account_history = AccountHistory.new())
     @balance = 0
+    @account_history = account_history
   end
 
   def deposit(amount)
     @balance += amount
+    add_transaction(amount)
   end
 
   def withdraw(amount)
     raise 'Not enough money in account' if @balance - amount < MINIMUM_BALANCE
 
     @balance -= amount
+    add_transaction(amount)
+  end
+
+  def add_transaction(amount)
+    @account_history.add_transaction(amount, @balance)
   end
 end
