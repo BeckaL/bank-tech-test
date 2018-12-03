@@ -8,24 +8,20 @@ class AccountHistory
 
   def add_transaction(deposit, new_balance)
     date = Time.now.strftime("%d/%m/%Y")
-    @transactions.push([date, deposit, new_balance])
+    @transactions.push({date: date, deposit: deposit, new_balance: new_balance})
   end
 
   def statement
     st = statement_header
-    @transactions.each do |transaction|
+    @transactions.each do |t|
       line = []
-      line.push(transaction.first)
-      withdrawal_or_deposit = transaction[1]
-      if withdrawal_or_deposit < 0
-        line.push("")
-        line.push(withdrawal_or_deposit.abs)
+      line.push(t[:date])
+      if t[:deposit] < 0
+        line += ["", t[:deposit].abs]
       else
-        line.push(withdrawal_or_deposit)
-        line.push("")
+        line += [t[:deposit], ""]
       end
-      p line
-      line.push(transaction.last)
+      line.push(t[:new_balance])
       st += "\n#{line.join(' || ')}"
     end
     return st

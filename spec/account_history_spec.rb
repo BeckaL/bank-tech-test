@@ -13,7 +13,7 @@ RSpec.describe 'Account History' do
   it 'saves a new transaction' do
     allow(Time).to receive_message_chain('now.strftime').with("%d/%m/%Y").and_return "03/12/2018"
     @history.add_transaction(100, 100)
-    expect(@history.transactions).to eq [["03/12/2018",100, 100]]
+    expect(@history.transactions).to eq [{date: "03/12/2018", deposit: 100, new_balance: 100}]
   end
 
   it 'prints transaction history' do
