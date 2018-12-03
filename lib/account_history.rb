@@ -6,17 +6,16 @@ class AccountHistory
     @transactions = []
   end
 
-  def add_transaction(deposit, new_balance)
+  def add_transaction(deposit, balance)
     date = Time.now.strftime('%d/%m/%Y')
-    @transactions.push({ date: date, deposit: deposit, balance: new_balance })
+    @transactions.push({ date: date, deposit: deposit, balance: balance })
   end
 
   def statement
     statement = statement_header
-    @transactions.each do |t|
-      line = [(t[:date])]
-      line += withdrawal?(t[:deposit]) ? ['', -t[:deposit]] : [t[:deposit], '']
-      line << t[:balance]
+    @transactions.each do |t, k, v|
+      line = t.map { |k, v| v }
+      line[1] < 0 ? line.insert(1, "") : line.insert(2, "")
       statement += "\n#{line.join(' || ')}"
     end
     return statement
@@ -26,10 +25,6 @@ class AccountHistory
 
   def statement_header
     'date || credit || debit || balance'
-  end
-
-  def withdrawal?(amount)
-    amount < 0
   end
 
 end
