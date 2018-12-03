@@ -29,3 +29,7 @@ Clone this repository
 Clone this repository
 
 ``ruby run.rb``
+
+## Running linting
+
+``rubocop``
