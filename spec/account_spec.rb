@@ -5,10 +5,11 @@ RSpec.describe 'Account' do
   let(:decimal_amount) { 50.5 }
   let(:large_amount) { 1000 }
 
-  # let(:account_history) {double: account_history}
+  let(:account_history) {double AccountHistory}
 
   before do
-    @account = Account.new
+    @account = Account.new(account_history)
+    allow(account_history).to receive(:add_transaction)
   end
 
   it 'initializes with a balance of zero' do

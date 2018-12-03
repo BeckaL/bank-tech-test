@@ -1,5 +1,3 @@
-require_relative "account_history.rb"
-
 class Account
   MINIMUM_BALANCE = 0
 

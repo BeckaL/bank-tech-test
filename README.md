@@ -32,9 +32,12 @@ Clone this repository
 
 `` irb``
 
-Require the account file
+Require the account and account history files
 
-`` require './lib/account.rb' ``
+```
+require './lib/account.rb' 
+require './lib/account_history.rb'
+```
 
 Create a new account
 
