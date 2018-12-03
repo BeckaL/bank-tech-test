@@ -32,6 +32,10 @@ Clone this repository
 
 `` irb``
 
+Require the account file
+
+`` require './lib/account.rb' ``
+
 Create a new account
 
 `` account = Account.new``
@@ -73,3 +77,7 @@ $ print account.history.statement
 ## Running linting
 
 ``$ rubocop``
+
+## Manual feature test in IRB
+
+![]('~/Projects/tech-tests/bank-tech-test/public/irb_feature_test.png')
