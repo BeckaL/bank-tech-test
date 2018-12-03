@@ -45,7 +45,8 @@ Check your balance
 ```
 $ account.balance
 
-=> 0```
+=> 0
+```
 
 Add to your balance
 
@@ -53,7 +54,8 @@ Add to your balance
 $account.deposit(100)
 $account.balance
 
-=> 100```
+=> 100
+```
 
 
 Withdraw from your account
@@ -72,7 +74,8 @@ $ print account.history.statement
 
 => date || credit || debit || balance
 03/12/2018 || 100 ||  || 100
-03/12/2018 ||  || 50 || 50```
+03/12/2018 ||  || 50 || 50
+```
 
 ## Running linting
 
