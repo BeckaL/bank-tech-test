@@ -15,8 +15,7 @@ class AccountHistory
 
   def statement
     statement = @transactions.map do |t|
-      line = t.map { |k, v| v}
-      "\n#{line.join(' || ')}"
+      line = "\n" + t.map { |k, v| v }.join(' || ')
     end
     return statement_header + statement.join('')
   end
