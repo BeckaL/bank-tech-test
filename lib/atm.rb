@@ -15,7 +15,11 @@ def atm
       action = selection == '2' ? 'deposit' : 'withdrawal'
       puts "Please enter #{action} amount"
       amount = gets.chomp.to_i
-      action == 'deposit' ? account.deposit(amount) : account.withdraw(amount)
+      begin
+        action == 'deposit' ? account.deposit(amount) : account.withdraw(amount)
+      rescue
+        puts "Not enough money in account"
+      end
     when '4'
       puts account_history.statement
     when 'quit' then break
