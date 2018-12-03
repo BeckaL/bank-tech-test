@@ -11,6 +11,8 @@ class Account
   end
 
   def deposit(amount)
+    raise 'Not given a valid deposit' unless amount.is_a? Numeric
+
     @balance += amount
     add_transaction(amount)
   end

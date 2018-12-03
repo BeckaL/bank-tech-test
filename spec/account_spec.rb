@@ -5,6 +5,8 @@ RSpec.describe 'Account' do
   let(:decimal_amount) { 50.5 }
   let(:large_amount) { 1000 }
 
+  # let(:account_history) {double: account_history}
+
   before do
     @account = Account.new
   end
@@ -23,6 +25,10 @@ RSpec.describe 'Account' do
     it 'depositing allows for deposits with decimals' do
       expect { @account.deposit(decimal_amount) }
         .to change { @account.balance }.by decimal_amount
+    end
+
+    it 'cannot deposit if the amount given is not an integer' do
+      expect { @account.deposit('not an integer') }.to raise_error 'Not given a valid deposit'
     end
 
   end
