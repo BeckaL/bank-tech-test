@@ -6,4 +6,8 @@ class AccountHistory
     @transactions = []
   end
 
+  def add_transaction(deposit, new_balance)
+    @transactions.push([deposit, new_balance])
+  end
+
 end
