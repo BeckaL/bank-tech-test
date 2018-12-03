@@ -12,19 +12,14 @@ class AccountHistory
   end
 
   def statement
-    st = statement_header
+    statement = statement_header
     @transactions.each do |t|
-      line = []
-      line.push(t[:date])
-      if t[:deposit] < 0
-        line += ["", t[:deposit].abs]
-      else
-        line += [t[:deposit], ""]
-      end
-      line.push(t[:new_balance])
-      st += "\n#{line.join(' || ')}"
+      line = [(t[:date])]
+      line += withdrawal?(t[:deposit]) ? ["", -t[:deposit]] : [t[:deposit], ""]
+      line << t[:new_balance]
+      statement += "\n#{line.join(' || ')}"
     end
-    return st
+    return statement
   end
 
 
@@ -33,6 +28,10 @@ class AccountHistory
 
   def statement_header
     return "date || credit || debit || balance"
+  end
+
+  def withdrawal?(amount)
+    amount < 0
   end
 
 end
