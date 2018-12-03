@@ -1,6 +1,9 @@
 require './lib/account.rb'
 
 RSpec.describe 'Account' do
+  let(:whole_no_amount){100}
+  let(:decimal_amount){50.5}
+
   before do
     @account = Account.new
   end
@@ -10,11 +13,21 @@ RSpec.describe 'Account' do
   end
 
   it 'depositing increases balance by the amount deposited' do
-    expect{@account.deposit(100)}.to change{@account.balance}.by 100
+    expect{@account.deposit(whole_no_amount)}.to change{@account.balance}.by whole_no_amount
   end
 
   it 'depositing allows for deposits with decimals' do
-    expect{@account.deposit(50.5)}.to change{@account.balance}.by 50.5
+    expect{@account.deposit(decimal_amount)}.to change{@account.balance}.by decimal_amount
+  end
+
+  it 'withdrawing decreases balance by the amount deposited' do
+    @account.deposit(whole_no_amount)
+    expect{@account.withdraw(whole_no_amount)}.to change{@account.balance}.by -whole_no_amount
+  end
+
+  it 'withdrawing decreases balance by the amount deposited' do
+    @account.deposit(whole_no_amount)
+    expect{@account.withdraw(decimal_amount)}.to change{@account.balance}.by -decimal_amount
   end
 
 
