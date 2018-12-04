@@ -5,10 +5,19 @@ RSpec.describe 'Account' do
   let(:decimal_amount) { 50.5 }
   let(:large_amount) { 1000 }
   let(:account_history) { double AccountHistory }
+  let(:statement) { double Statement }
 
   before do
-    @account = Account.new(account_history)
+    @account = Account.new(account_history, statement)
     allow(account_history).to receive(:add_transaction)
+    allow(account_history).to receive(:transactions)
+    allow(statement).to receive(:account_history).and_return("date || credit || debit || balance")
+  end
+
+  describe '#print_statement' do
+    it 'prints a basic statement' do
+      expect(@account.print_statement()).to eq("date || credit || debit || balance")
+    end
   end
 
   it 'initializes with a balance of zero' do
@@ -27,9 +36,7 @@ RSpec.describe 'Account' do
     end
 
     it 'cannot deposit if the amount given is not an integer' do
-      expect { @account.deposit('not an integer') }.to raise_error(
-        'Not given a valid deposit'
-      )
+      expect { @account.deposit('n') }.to raise_error('Not a valid deposit')
     end
   end
 
@@ -54,9 +61,7 @@ RSpec.describe 'Account' do
     end
 
     it 'cannot withdraw if the amount given is not an integer' do
-      expect { @account.withdraw('not an integer') }.to raise_error(
-       'Not given a valid deposit'
-     )
+      expect { @account.withdraw('n') }.to raise_error('Not a valid deposit')
     end
   end
 end

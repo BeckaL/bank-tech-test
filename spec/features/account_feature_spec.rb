@@ -1,5 +1,6 @@
 require './lib/account_history.rb'
 require './lib/account.rb'
+require './lib/statement.rb'
 
 describe 'Account' do
   let(:date) { '03/12/2018' }
@@ -16,13 +17,12 @@ describe 'Account' do
 
   it 'creates an account, and makes a number of deposits and withdrawals' do
     account = Account.new
-
     account.deposit(first_deposit)
     account.deposit(second_deposit)
     account.withdraw(first_withdrawal)
 
     expect(account.balance).to eq final_balance
-    expect(account.history.statement).to eq(
+    expect(account.print_statement).to eq(
       "date || credit || debit || balance\n" \
       "#{date} || #{first_deposit} ||  || #{first_deposit}\n" \
       "#{date} || #{second_deposit} ||  || #{interim_balance}\n" \
