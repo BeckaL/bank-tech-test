@@ -1,5 +1,4 @@
 class AccountHistory
-
   attr_reader :transactions
 
   def initialize
@@ -15,14 +14,14 @@ class AccountHistory
 
   def statement
     output = @transactions.map do |t|
-      line = "\n" + t.map { |k, v| v }.join(' || ')
+      "\n" + t.map { |_k, value| value }.join(' || ')
     end
-    return statement_header + output.join('')
+    statement_header + output.join('')
   end
 
   private
+
   def statement_header
     'date || credit || debit || balance'
   end
-
 end

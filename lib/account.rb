@@ -3,7 +3,7 @@ class Account
 
   attr_reader :balance, :history
 
-  def initialize(account_history = AccountHistory.new())
+  def initialize(account_history = AccountHistory.new)
     @balance = 0
     @history = account_history
   end
