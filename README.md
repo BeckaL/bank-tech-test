@@ -1,3 +1,16 @@
+## Bank Tech test
+
+This is a simple programme, written in ruby, to simulate a bank account.
+
+The programme contains two classes - an Account class for keeping track of balance, including withdrawals and deposits; and an Account History class which keeps a log of all successful past transactions, and can return a statement.
+
+In writing it, I have used principles of object-oriented design. Methods and classes are as small as possible and obey the single responsibility principle, and I have aimed for good readability so that my code is as easy to work on and change as possible.
+
+The programme is run from the command line. See the section below on 'working on and running the code for instructions on how to use it.
+
+The programme is tested with both unit tests and feature tests, using RSpec - a testing framework for Ruby. Test coverage is 100%.
+
+
 ## User stories
 
 As a bank customer  
@@ -16,9 +29,9 @@ As a bank customer
 So that I can keep track of my transactions
 I want to be able to see a bank statement
 
-## Before doing any of the below
+## Working and running on the code
 
-Clone this repository
+Before doing any of the below, clone this repository and run the following commands in the terminal:
 
 ``$ cd bank-tech-test``
 
@@ -35,7 +48,7 @@ Clone this repository
 Require the account and account history files
 
 ```
-require './lib/account.rb' 
+require './lib/account.rb'
 require './lib/account_history.rb'
 ```
 
