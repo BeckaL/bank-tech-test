@@ -11,36 +11,22 @@ RSpec.describe 'Account History' do
     allow(Time).to receive_message_chain('now.strftime').with('%d/%m/%Y')
                                                         .and_return date
     @history = AccountHistory.new
+    @history.add_transaction(deposit, first_balance)
   end
 
-  describe '#add_transaction' do
-    it 'saves a new transaction' do
-      @history.add_transaction(deposit, first_balance)
+  describe '#add' do
+    it 'saves a deposit' do
       expect(@history.transactions).to eq(
         [{ date: date, deposit: deposit,
            withdrawal: nil, balance: first_balance }]
       )
     end
-  end
 
-  describe '#statement' do
-    before do
-      @history.add_transaction(deposit, first_balance)
-    end
-
-    it 'prints transaction history' do
-      expect(@history.statement).to eq(
-        "date || credit || debit || balance\n" \
-        "#{date} || #{deposit} ||  || #{first_balance}"
-      )
-    end
-
-    it 'prints longer transaction history' do
+    it 'saves a withdrawal' do
       @history.add_transaction(withdrawal, second_balance)
-      expect(@history.statement).to eq(
-        "date || credit || debit || balance\n" \
-        "#{date} || #{deposit} ||  || #{first_balance}\n" \
-        "#{date} ||  || #{withdrawal.abs} || #{second_balance}"
+      expect(@history.transactions[1]).to eq(
+        { date: date, deposit: nil,
+          withdrawal: withdrawal.abs, balance: second_balance }
       )
     end
   end
